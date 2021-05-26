@@ -19,3 +19,8 @@
 - URL de test : http://localhost/strongandfit/public/wp-json/wp/v2/zone
 - http://localhost/strongandfit/public/wp-json/wp/v2/type
 
+### Création d'un utilisateur/inscription
+
+- Avancement : OK (personnalisé)
+- Method : POST
+- URL de test : http://localhost/strongandfit/public/wp-json/strongandfit/v1/signup
