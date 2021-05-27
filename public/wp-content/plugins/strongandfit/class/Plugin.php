@@ -4,6 +4,7 @@ namespace StrongAndFit;
 
 use StrongAndFit\CustomPostType\Program;
 use StrongAndFit\CustomPostType\Session;
+use StrongAndFit\Model\ParticipationModel;
 
 class Plugin
 {
@@ -22,6 +23,16 @@ class Plugin
 
         $session = new Session();
         $session->initialize();
+
+    }
+
+    // this function is called when the plugin is activated, thanks to the register_activation_hook in strongandfit.php
+    public static function activate()
+    {
+
+        // creation of database tables
+        $participationModel = new ParticipationModel();
+        $participationModel->createTable();
 
     }
     
