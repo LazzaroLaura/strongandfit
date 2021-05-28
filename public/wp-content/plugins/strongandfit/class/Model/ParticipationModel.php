@@ -38,5 +38,19 @@ class ParticipationModel extends CoreModel
         dbDelta($sql);
     }
 
+    public function insert()
+    {
+        $this->database->insert(
+
+            $this->getTableName(),
+
+            // second argument: the values ​​we give to the different columns of the table
+            [
+                'user_id' => $this->user_id,
+                'program_id' => $this->program_id,
+                'created_at' => date('Y-m-d H:i:s')
+            ]
+        );
+    }
 
 }

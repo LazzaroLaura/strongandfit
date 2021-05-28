@@ -2,6 +2,8 @@
 
 namespace StrongAndFit;
 
+use StrongAndFit\Model\ParticipationModel;
+
 class Api
 {
     protected $baseURI;
@@ -23,6 +25,16 @@ class Api
     public function registerRoutes()
     {
         // route to create a new user
+        register_rest_route(
+            'strongandfit/v1',
+            '/save-participation',
+            [
+                'methods' => 'POST',
+                'callback' => [$this, 'saveParticipation'],
+            ]
+        );
+
+        // route to insert into custom table
         register_rest_route(
             'strongandfit/v1',
             '/signup',
@@ -65,6 +77,23 @@ class Api
                 'errors' => $result->errors
             ];
         }
+
+    }
+
+    public function saveParticipation($data = null)
+    {
+        if($data === null) {
+            $data = $this->getDataFromPostJSON();
+        }
+
+        $currentUser = wp_get_current_user();
+        $userId = $currentUser->ID;
+
+        $participationModel = new ParticipationModel();
+        $participationModel->user_id = $userId;
+        // we will send the program_id from the front
+        $participationModel->program_id = $data['program_id'];
+        $participationModel->insert();
 
     }
 

@@ -24,3 +24,9 @@
 - Avancement : OK (personnalisé)
 - Method : POST
 - URL de test : http://localhost/strongandfit/public/wp-json/strongandfit/v1/signup
+
+### Get token
+
+- Avancement : OK (personnalisé)
+- Method : POST
+- URL de test : http://localhost/strongandfit/public/wp-json/jwt-auth/v1/token
