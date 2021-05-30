@@ -30,3 +30,9 @@
 - Avancement : OK (personnalisé)
 - Method : POST
 - URL de test : http://localhost/strongandfit/public/wp-json/jwt-auth/v1/token
+
+### Filtrer les programmes selon 2 taxo
+
+- Avancement : ok (géré par wp)
+- Method : GET
+- URL de test : http://localhost/strongandfit/public/wp-json/wp/v2/program?_embed=1&zone=7&tax_relation=AND&type=2
