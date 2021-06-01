@@ -43,6 +43,16 @@ class Api
                 'callback' => [$this, 'signup'],
             ]
         );
+
+        // route to create a session
+        register_rest_route(
+            'strongandfit/v1',
+            '/session-create',
+            [
+                'methods' => 'POST',
+                'callback' => [$this, 'sessionCreate'],
+            ],
+        );
     }
 
     public function signup()
@@ -75,6 +85,42 @@ class Api
             return [
                 'success' => false,
                 'errors' => $result->errors
+            ];
+        }
+
+    }
+
+    public function sessionCreate($data = null)
+    {
+        if($data === null) {
+            $data = $this->getDataFromPostJSON();
+        }
+
+        $userTime = $data['user_time'];
+
+        $result = wp_insert_post([
+            'post_type' => 'session',
+            'post_title' => $data['title'],
+            'post_content' => $data['content'],
+            'post_status' => 'publish',
+        ]);
+
+        if (is_int($result)) {
+
+            update_post_meta(
+                $result,
+                'user_time',
+                $userTime
+            );
+
+            return [
+                'success' => true,
+                'session' => $data
+            ];
+        }
+        else {
+            return [
+                'success' => false,
             ];
         }
 
