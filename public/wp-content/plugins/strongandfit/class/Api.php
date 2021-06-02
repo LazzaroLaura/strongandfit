@@ -97,6 +97,7 @@ class Api
         }
 
         $userTime = $data['user_time'];
+        $programId = $data['program_id'];
 
         $result = wp_insert_post([
             'post_type' => 'session',
@@ -111,6 +112,12 @@ class Api
                 $result,
                 'user_time',
                 $userTime
+            );
+
+            update_post_meta(
+                $result,
+                'program_id',
+                $programId
             );
 
             return [
