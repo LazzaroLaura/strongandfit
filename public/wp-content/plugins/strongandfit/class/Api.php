@@ -53,6 +53,16 @@ class Api
                 'callback' => [$this, 'sessionCreate'],
             ],
         );
+
+        // route to update a session
+        register_rest_route(
+            'strongandfit/v1',
+            '/session-update',
+            [
+                'methods' => 'POST',
+                'callback' => [$this, 'sessionUpdate'],
+            ],
+        );
     }
 
     public function signup()
@@ -131,6 +141,41 @@ class Api
             ];
         }
 
+    }
+
+    public function sessionUpdate($data = null)
+    {
+        if($data === null) {
+            $data = $this->getDataFromPostJSON();
+        }
+
+        $userTime = $data['user_time'];
+        $postId = $data['ID'];
+
+        $options = [
+            'ID' => $postId,
+        ];
+
+        $sessionUpdate = wp_update_post($options);
+
+        update_post_meta(
+            $sessionUpdate,
+            'user_time',
+            $userTime
+        );
+
+        if (is_int($sessionUpdate)) {
+            return [
+                'success' => true,
+                'ID' => $postId,
+                'user_time' => $data['user_time'],
+            ];
+        } else {
+            return [
+                'success' => false,
+                'errors' => $sessionUpdate->errors
+            ];
+        }
     }
 
     public function saveParticipation($data = null)

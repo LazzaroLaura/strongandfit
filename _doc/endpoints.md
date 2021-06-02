@@ -36,3 +36,15 @@
 - Avancement : ok (géré par wp)
 - Method : GET
 - URL de test : http://localhost/strongandfit/public/wp-json/wp/v2/program?_embed=1&zone=7&tax_relation=AND&type=2
+
+### Création d'une session (réenregistrer son temps)
+
+- Avancement : ok (personnalisé)
+- Method : POST
+- URL de test : http://localhost/strongandfit/public/wp-json/strongandfit/v1/session-create
+
+### Mise à jour d'une session (réenregistrer son temps)
+
+- Avancement : ok (personnalisé)
+- Method : POST
+- URL de test : http://localhost/strongandfit/public/wp-json/strongandfit/v1/session-update
