@@ -166,6 +166,18 @@ class Api
         }
 
         $userTime = $data['user_time'];
+
+        $hours = floor($userTime / (60 * 60));
+        $userTime -= $hours * (60 * 60);
+
+        $minutes = floor($userTime / 60);
+        $userTime -= $minutes * 60;
+
+        $seconds = floor($userTime);
+        $userTime -= $seconds;
+
+        $userTimeToDisplay = $hours."h ".$minutes."m ".$seconds."s";
+
         $postId = $data['ID'];
 
         $options = [
@@ -177,7 +189,7 @@ class Api
         update_post_meta(
             $sessionUpdate,
             'user_time',
-            $userTime
+            $userTimeToDisplay
         );
 
         if (is_int($sessionUpdate)) {
