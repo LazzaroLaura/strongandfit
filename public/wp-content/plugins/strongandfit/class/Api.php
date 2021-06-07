@@ -121,12 +121,16 @@ class Api
 
         $programId = $data['program_id'];
 
+        $postThumbnailId = get_post_thumbnail_id($programId);
+
         $result = wp_insert_post([
             'post_type' => 'session',
             'post_title' => $data['title'],
             'post_content' => $data['content'],
             'post_status' => 'publish',
         ]);
+
+        set_post_thumbnail($result, $postThumbnailId);
 
         if (is_int($result)) {
 

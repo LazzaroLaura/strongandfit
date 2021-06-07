@@ -115,6 +115,17 @@ class Session
 
         $userTime = filter_input(INPUT_POST, 'session_user_time', FILTER_VALIDATE_INT);
 
+        $hours = floor($userTime / (60 * 60));
+        $userTime -= $hours * (60 * 60);
+
+        $minutes = floor($userTime / 60);
+        $userTime -= $minutes * 60;
+
+        $seconds = floor($userTime);
+        $userTime -= $seconds;
+
+        $userTime = $hours."h ".$minutes."m ".$seconds."s";
+
         if($userTime) {
             update_post_meta(
                 $postId,
