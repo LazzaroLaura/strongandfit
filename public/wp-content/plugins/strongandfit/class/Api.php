@@ -107,6 +107,18 @@ class Api
         }
 
         $userTime = $data['user_time'];
+
+        $hours = floor($userTime / (60 * 60));
+        $userTime -= $hours * (60 * 60);
+
+        $minutes = floor($userTime / 60);
+        $userTime -= $minutes * 60;
+
+        $seconds = floor($userTime);
+        $userTime -= $seconds;
+
+        $userTimeToDisplay = $hours."h ".$minutes."m ".$seconds."s";
+
         $programId = $data['program_id'];
 
         $result = wp_insert_post([
@@ -121,7 +133,7 @@ class Api
             update_post_meta(
                 $result,
                 'user_time',
-                $userTime
+                $userTimeToDisplay
             );
 
             update_post_meta(
