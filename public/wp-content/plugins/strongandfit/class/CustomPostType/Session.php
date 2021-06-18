@@ -49,30 +49,25 @@ class Session
             ]
         );
 
-        $options = [
-            'type' => 'int',
-            'single' => true,
-            'show_in_rest' => true
-        ];
-
-        register_post_meta('session', 'user_time', $options);
-        register_post_meta('session', 'program_id', $options);
+        add_action( 'rest_api_init', function () {
+            register_post_meta('session', 'user_time', [
+                'show_in_rest' => true,
+                'object_subtype' => 'session',
+                'type' => 'string',
+                'single' => true,
+            ]);
+            },
+        );
 
         add_action( 'rest_api_init', function () {
-            register_rest_field( 'session', 'user_time', array(
-                'get_callback' => function($post) {
-                    return get_post_meta( $post['id'], 'user_time', true );
-                },
-            ) );
-        });
-
-        add_action( 'rest_api_init', function () {
-            register_rest_field( 'session', 'program_id', array(
-                'get_callback' => function($post) {
-                    return get_post_meta( $post['id'], 'program_id', true );
-                },
-            ) );
-        });
+            register_post_meta('session', 'program_id', [
+                'show_in_rest' => true,
+                'object_subtype' => 'session',
+                'type' => 'string',
+                'single' => true,
+            ]);
+            },
+        );
 
         // display the fields
         add_action('edit_form_after_editor', [$this, 'displayUserTimeForm']);

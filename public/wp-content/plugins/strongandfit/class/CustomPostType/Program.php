@@ -51,32 +51,25 @@ class Program
             ]
         );
 
-        // Custom meta data
-        $options = [
-            'type' => 'int',
-            'single' => true,
-            'show_in_rest' => true
-        ];
-        // we associate the custom meta to the cpt program
-        register_post_meta('program', 'best_user_id', $options);
-        register_post_meta('program', 'best_user_time', $options);
-
-        // to see the custom fields in api
         add_action( 'rest_api_init', function () {
-            register_rest_field( 'program', 'best_user_id', array(
-                'get_callback' => function($post) {
-                    return get_post_meta( $post['id'], 'best_user_id', true );
-                },
-            ) );
-        });
+            register_post_meta('program', 'best_user_id', [
+                'show_in_rest' => true,
+                'object_subtype' => 'program',
+                'type' => 'string',
+                'single' => true,
+            ]);
+            },
+        );
 
         add_action( 'rest_api_init', function () {
-            register_rest_field( 'program', 'best_user_time', array(
-                'get_callback' => function($post) {
-                    return get_post_meta( $post['id'], 'best_user_time', true );
-                },
-            ) );
-        });
+            register_post_meta('program', 'best_user_time', [
+                'show_in_rest' => true,
+                'object_subtype' => 'program',
+                'type' => 'string',
+                'single' => true,
+            ]);
+            },
+        );
 
         // display the fields
         add_action('edit_form_after_editor', [$this, 'displayBestUserForm']);
